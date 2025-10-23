@@ -1,17 +1,11 @@
 import { EmptyItem } from "./EmptyItem";
 import { foodItems } from "../Data/foodItem";
 import FoodItem from "./FoodItem";
+import styles from "./item.module.css";
 
 const Item = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "20px",
-        justifyContent: "center",
-      }}
-    >
+    <div className={styles["item-container"]}>
       {foodItems.length ? (
         foodItems.map(({ id, name, category, price, description, image }) => {
           return (

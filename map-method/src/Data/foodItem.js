@@ -1,0 +1,42 @@
+export const foodItems = [
+  {
+    id: 1,
+    name: "Margherita Pizza",
+    category: "Pizza",
+    price: 299,
+    description: "Classic cheese and tomato pizza",
+    image: "https://picsum.photos/200/150?food=1",
+  },
+  {
+    id: 2,
+    name: "Veg Burger",
+    category: "Burger",
+    price: 149,
+    description: "Delicious veggie burger with lettuce and tomato",
+    image: "https://picsum.photos/200/150?food=2",
+  },
+  {
+    id: 3,
+    name: "French Fries",
+    category: "Snacks",
+    price: 99,
+    description: "Crispy golden fries",
+    image: "https://picsum.photos/200/150?food=3",
+  },
+  {
+    id: 4,
+    name: "Caesar Salad",
+    category: "Salad",
+    price: 199,
+    description: "Fresh romaine lettuce with Caesar dressing",
+    image: "https://picsum.photos/200/150?food=4",
+  },
+  {
+    id: 5,
+    name: "Chocolate Shake",
+    category: "Beverages",
+    price: 129,
+    description: "Rich and creamy chocolate milkshake",
+    image: "https://picsum.photos/200/150?food=5",
+  },
+];

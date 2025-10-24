@@ -1,10 +1,22 @@
-import { useState } from "react";
 import Item from "./Components/Item";
+import FoodInput from "./Components/FoodInput";
+import { useState } from "react";
 
 function App() {
+  const [foodItems, setFoodItems] = useState([]);
+
+  const addFood = (food) => {
+    console.log(food);
+
+    setFoodItems((prev) => [...prev, food]);
+  };
+
+  console.log("food", foodItems);
+
   return (
     <>
-      <Item />
+      <FoodInput onAddFood={addFood} />
+      <Item foodItems={foodItems} />
     </>
   );
 }

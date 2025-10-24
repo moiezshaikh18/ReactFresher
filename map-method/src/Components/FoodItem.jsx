@@ -1,4 +1,12 @@
-const FoodItem = ({ id, name, category, price, description, image }) => {
+const FoodItem = ({
+  id,
+  name,
+  category,
+  price,
+  description,
+  image,
+  onClick,
+}) => {
   return (
     <>
       <div
@@ -11,9 +19,10 @@ const FoodItem = ({ id, name, category, price, description, image }) => {
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
           textAlign: "center",
         }}
+        onClick={() => onClick(id, name)}
       >
         <img
-          src={image}
+          src={image ? image : `https://picsum.photos/200/150?food=${id}}`}
           alt={name}
           style={{ width: "100%", borderRadius: "10px" }}
         />
@@ -22,7 +31,6 @@ const FoodItem = ({ id, name, category, price, description, image }) => {
         <p>{description}</p>
         <p style={{ fontWeight: "bold" }}>₹{price}</p>
       </div>
-      ;
     </>
   );
 };

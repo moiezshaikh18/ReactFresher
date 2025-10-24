@@ -1,11 +1,14 @@
 import { EmptyItem } from "./EmptyItem";
-import { foodItems } from "../Data/foodItem";
 import FoodItem from "./FoodItem";
-import styles from "./item.module.css";
+import { Container } from "./Container";
 
-const Item = () => {
+const Item = ({ foodItems }) => {
+  const handleOnClick = (id, val) => {
+    console.log(id, val);
+  };
+
   return (
-    <div className={styles["item-container"]}>
+    <Container>
       {foodItems.length ? (
         foodItems.map(({ id, name, category, price, description, image }) => {
           return (
@@ -16,13 +19,14 @@ const Item = () => {
               price={price}
               description={description}
               image={image}
+              onClick={handleOnClick}
             />
           );
         })
       ) : (
         <EmptyItem />
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -2,20 +2,26 @@ import AppName from "./Components/AppName/AppName";
 import AddTodo from "./Components/AddTodo";
 import { TodoItems } from "./Components/TodoItems";
 import "./App.css";
-
-const todoList = [
-  { todoName: "Buy Milk", todoDate: "10 / 12 / 2025" },
-  { todoName: "Study React", todoDate: "11 / 12 / 2025" },
-  { todoName: "Go to Gym", todoDate: "12 / 12 / 2025" },
-  { todoName: "Pay Bills", todoDate: "13 / 12 / 2025" },
-];
+import { useState } from "react";
 
 function App() {
+  const [todos, setTodos] = useState([]);
+
+  const handleAddTodo = (todo) => {
+    setTodos((prev) => [...prev, todo]);
+  };
+
+  const handleDeleteTodo = (id) => {
+    setTodos((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  console.log(todos);
+
   return (
     <div>
       <AppName />
-      <AddTodo />
-      <TodoItems todoList={todoList} />
+      <AddTodo handleAddTodo={handleAddTodo} />
+      <TodoItems todoList={todos} onDelete={handleDeleteTodo} />
     </div>
   );
 }

@@ -1,18 +1,63 @@
+import { useId } from "react";
+import { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-const AddTodo = () => {
+const AddTodo = ({ handleAddTodo }) => {
+  const [todo, setTodo] = useState({
+    todoName: "",
+    todoDate: "",
+  });
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setTodo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAdd = () => {
+    if (!todo.todoName || !todo.todoDate) return;
+
+    const newTodo = {
+      id: Date.now(),
+      ...todo,
+    };
+
+    handleAddTodo(newTodo);
+
+    setTodo({
+      id: "",
+      todoName: "",
+      todoDate: "",
+    });
+  };
+
   return (
     <Container>
       <Row className="custom-row">
         <Col xs={5}>
-          <input type="text" placeholder="Enter Todo Here" />
+          <input
+            type="text"
+            name="todoName"
+            value={todo.todoName}
+            placeholder="Enter Todo Here"
+            onChange={handleOnChange}
+          />
         </Col>
         <Col>
-          <input type="date" />
+          <input
+            type="date"
+            name="todoDate"
+            value={todo.todoDate}
+            onChange={handleOnChange}
+          />
         </Col>
         <Col>
-          <Button variant="success" size="sm" className="custom-button">
-            Success
+          <Button
+            variant="success"
+            size="sm"
+            className="custom-button"
+            onClick={handleAdd}
+          >
+            +
           </Button>
         </Col>
       </Row>

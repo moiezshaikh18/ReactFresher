@@ -5,6 +5,7 @@ const FoodItem = ({
   price,
   description,
   image,
+  buy,
   onClick,
 }) => {
   return (
@@ -22,7 +23,7 @@ const FoodItem = ({
         onClick={() => onClick(id, name)}
       >
         <img
-          src={image ? image : `https://picsum.photos/200/150?food=${id}}`}
+          src={image ? image : `https://picsum.photos/200/150?food=${id}`}
           alt={name}
           style={{ width: "100%", borderRadius: "10px" }}
         />
@@ -30,6 +31,22 @@ const FoodItem = ({
         <p style={{ fontStyle: "italic", color: "#555" }}>{category}</p>
         <p>{description}</p>
         <p style={{ fontWeight: "bold" }}>₹{price}</p>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick(id);
+          }}
+          style={{
+            backgroundColor: buy ? "#4caf50" : "#008CBA",
+            color: "#fff",
+            padding: "8px 12px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          {buy ? "Bought" : "Buy"}
+        </button>
       </div>
     </>
   );

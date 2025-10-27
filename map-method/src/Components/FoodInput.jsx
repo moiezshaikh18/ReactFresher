@@ -9,6 +9,7 @@ const FoodInput = ({ onAddFood }) => {
     price: "",
     description: "",
     image: "",
+    buy: false,
   });
 
   const handleChange = (e) => {
@@ -28,6 +29,7 @@ const FoodInput = ({ onAddFood }) => {
       price: "",
       description: "",
       image: "",
+      buy: false,
     });
   };
 

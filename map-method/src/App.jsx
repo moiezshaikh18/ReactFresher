@@ -11,12 +11,18 @@ function App() {
     setFoodItems((prev) => [...prev, food]);
   };
 
+  const handleOnBuy = (id) => {
+    setFoodItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, buy: true } : item))
+    );
+  };
+
   console.log("food", foodItems);
 
   return (
     <>
       <FoodInput onAddFood={addFood} />
-      <Item foodItems={foodItems} />
+      <Item foodItems={foodItems} handleOnBuy={handleOnBuy} />
     </>
   );
 }

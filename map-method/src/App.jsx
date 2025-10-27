@@ -13,7 +13,7 @@ function App() {
 
   const handleOnBuy = (id) => {
     setFoodItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, buy: true } : item))
+      prev.map((item) => (item.id === id ? { ...item, buy: !item.buy } : item))
     );
   };
 

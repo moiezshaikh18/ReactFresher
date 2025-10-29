@@ -12,10 +12,10 @@ const reducerHandler = (state, action) => {
       return [...state, action.payload.todo];
 
     case "DeleteItem":
-      return state.filter((item) => item.id !== action.payload.id); // Delete todo
+      return state.filter((_item) => _item.id !== action.payload.id);
 
     default:
-      return state; // always return current state as fallback
+      return state;
   }
 };
 

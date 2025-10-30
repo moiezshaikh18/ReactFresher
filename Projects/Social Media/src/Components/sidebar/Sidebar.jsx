@@ -1,9 +1,13 @@
 import React from "react";
+import { useContext } from "react";
 import { Nav, Dropdown, Image } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
+import { PostListContext } from "../../store/post-list-store";
 
-function Sidebar({ selectedTab, onTabSelect }) {
+function Sidebar() {
+  const { selectedTab, setSelectedTab } = useContext(PostListContext);
+
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
@@ -15,7 +19,7 @@ function Sidebar({ selectedTab, onTabSelect }) {
           <Nav.Link
             active={selectedTab === "Home"}
             className="text-white"
-            onClick={() => onTabSelect("Home")}
+            onClick={() => setSelectedTab("Home")}
           >
             <FaHome className="me-2" /> Home
           </Nav.Link>
@@ -24,7 +28,7 @@ function Sidebar({ selectedTab, onTabSelect }) {
           <Nav.Link
             active={selectedTab === "CreatePost"}
             className="text-white"
-            onClick={() => onTabSelect("CreatePost")}
+            onClick={() => setSelectedTab("CreatePost")}
           >
             <IoIosCreate className="me-2" /> Create Post
           </Nav.Link>

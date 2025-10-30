@@ -5,14 +5,25 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IoChatbubblesSharp } from "react-icons/io5";
 import { useState } from "react";
+import { PostListContext } from "../../store/post-list-store";
+import { useContext } from "react";
+import { useEffect } from "react";
 
-function Header({ onSearch }) {
+function Header() {
   const [searchWord, setSearchWord] = useState("");
+  const { handleOnSearch } = useContext(PostListContext);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      console.log("SEARCH FIRED ✅", searchWord);
+      handleOnSearch(searchWord);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [searchWord]);
 
   const handelSearchChange = (e) => {
-    const { value } = e.target;
-    setSearchWord(value);
-    onSearch(value);
+    setSearchWord(e.target.value);
   };
 
   return (

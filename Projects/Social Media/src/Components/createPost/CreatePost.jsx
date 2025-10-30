@@ -1,16 +1,26 @@
 import React from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import { PostListContext } from "../../store/post-list-store";
 
-const CreatePost = ({ addPost }) => {
+const CreatePost = () => {
   const [post, setPost] = useState({
     title: "",
     content: "",
+    tags: [],
   });
+
+  const { addPost } = useContext(PostListContext);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setPost((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "tags") {
+      setPost((prev) => ({ ...prev, tags: value.split(",") }));
+    } else {
+      setPost((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleAddPost = () => {
@@ -24,6 +34,7 @@ const CreatePost = ({ addPost }) => {
     setPost({
       title: "",
       content: "",
+      tags: [],
     });
   };
 
@@ -31,6 +42,7 @@ const CreatePost = ({ addPost }) => {
     setPost({
       title: "",
       content: "",
+      tags: [],
     });
   };
 
@@ -67,6 +79,17 @@ const CreatePost = ({ addPost }) => {
                 value={post.content}
                 onChange={handleOnChange}
                 name="content"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="postTags">
+              <Form.Control
+                type="text"
+                placeholder="Enter your hash tags"
+                required
+                value={post.tags}
+                onChange={handleOnChange}
+                name="tags"
               />
             </Form.Group>
 

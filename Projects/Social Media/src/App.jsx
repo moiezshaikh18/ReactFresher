@@ -5,44 +5,40 @@ import Footer from "./Components/Footer/Footer";
 import Sidebar from "./Components/sidebar/Sidebar";
 import CreatePost from "./Components/createPost/CreatePost";
 import PostList from "./Components/postList/PostiList";
+import PostListContextProvider, {
+  PostListContext,
+} from "./store/post-list-store";
+import { useContext } from "react";
 
 function App() {
-  const [selectedTab, setSelectedTab] = useState("Home");
-  const [posts, setPosts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const addPost = (post) => {
-    setPosts((prev) => [...prev, post]);
-  };
-
-  const handleOnSearch = (query) => {
-    setSearchQuery(query);
-  };
-
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header onSearch={handleOnSearch} />
+    <PostListContextProvider>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
 
-      <div className="d-flex flex-grow-1">
-        {/* Sidebar on the left */}
-        <Sidebar selectedTab={selectedTab} onTabSelect={setSelectedTab} />
+        <div className="d-flex flex-grow-1">
+          <Sidebar />
 
-        {/* Main content area */}
-        <Container className="my-3">
-          {selectedTab === "Home" ? (
-            <>
-              <div className="mt-3">
-                <PostList posts={posts} searchQuery={searchQuery} />
-              </div>
-            </>
-          ) : (
-            <CreatePost addPost={addPost} />
-          )}
-        </Container>
+          <Container className="my-3">
+            <HomeOrCreate />
+          </Container>
+        </div>
+
+        <Footer />
       </div>
+    </PostListContextProvider>
+  );
+}
 
-      <Footer />
+function HomeOrCreate() {
+  const { selectedTab } = useContext(PostListContext);
+
+  return selectedTab === "Home" ? (
+    <div className="mt-3">
+      <PostList />
     </div>
+  ) : (
+    <CreatePost />
   );
 }
 

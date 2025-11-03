@@ -11,11 +11,13 @@ export const PostListContext = createContext({
   likePost: () => {},
   dislikePost: () => {},
   incrementViews: () => {},
+  getPostFromServer: () => {},
 });
 
 const initialState = {
   posts: [],
   searchQuery: "",
+  isLoading: false,
 };
 
 const postReducer = (state, action) => {
@@ -83,6 +85,9 @@ const postReducer = (state, action) => {
         ),
       };
 
+    case "setLoading":
+      return { ...state, isLoading: action.payload };
+
     default:
       return state;
   }
@@ -92,8 +97,9 @@ const PostListContextProvider = ({ children }) => {
   const [selectedTab, setSelectedTab] = useState("Home");
   const [state, dispatch] = useReducer(postReducer, initialState);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+  const getPostFromServer = async () => {
+    try {
+      dispatch({ type: "setLoading", payload: true });
       const res = await fetch("https://dummyjson.com/posts");
       const data = await res.json();
 
@@ -105,12 +111,12 @@ const PostListContextProvider = ({ children }) => {
         reactions: p.reactions || { likes: 0, dislikes: 0 },
         views: p.views || 0,
       }));
-
       dispatch({ type: "setPosts", payload: { posts: formatted } });
-    };
-
-    fetchPosts();
-  }, []);
+    } catch (error) {
+      console.log(error);
+    }
+    dispatch({ type: "setLoading", payload: false });
+  };
 
   const addPost = (post) => {
     dispatch({ type: "addPost", payload: { post } });
@@ -143,12 +149,14 @@ const PostListContextProvider = ({ children }) => {
         setSelectedTab,
         posts: state.posts,
         searchQuery: state.searchQuery,
+        isLoading: state.isLoading,
         addPost,
         handleOnSearch,
         handleOnDelete,
         likePost,
         dislikePost,
         incrementViews,
+        getPostFromServer,
       }}
     >
       {children}

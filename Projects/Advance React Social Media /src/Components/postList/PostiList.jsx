@@ -15,7 +15,7 @@ const PostList = () => {
   return (
     <div className="d-flex flex-column gap-3 p-3">
       {/* ✅ No posts at all */}
-      {posts.length === 0 && <EmptyState message="No posts yet!" />}
+      {posts.length === 0 && <EmptyState />}
 
       {/* ✅ Posts exist but search has no match */}
       {posts.length > 0 &&

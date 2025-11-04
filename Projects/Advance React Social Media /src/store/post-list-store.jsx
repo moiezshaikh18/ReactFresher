@@ -118,8 +118,39 @@ const PostListContextProvider = ({ children }) => {
     dispatch({ type: "setLoading", payload: false });
   };
 
-  const addPost = (post) => {
-    dispatch({ type: "addPost", payload: { post } });
+  const addPost = async (post) => {
+    try {
+      dispatch({ type: "setLoading", payload: true });
+
+      const res = await fetch("https://dummyjson.com/posts/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: post.title,
+          body: post.content,
+          tags: post.tags,
+          userId: 1,
+        }),
+      });
+
+      const data = await res.json();
+      console.log("API Response:", data);
+
+      const formattedPost = {
+        id: data.id,
+        title: data.title,
+        content: data.body,
+        tags: data.tags,
+        reactions: { likes: 0, dislikes: 0 },
+        views: 0,
+      };
+
+      dispatch({ type: "addPost", payload: { post: formattedPost } });
+    } catch (error) {
+      console.log("POST Error:", error);
+    }
+
+    dispatch({ type: "setLoading", payload: false });
   };
 
   const handleOnSearch = (query) => {

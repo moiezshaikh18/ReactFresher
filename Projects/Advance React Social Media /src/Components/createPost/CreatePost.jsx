@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { PostListContext } from "../../store/post-list-store";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [post, setPost] = useState({
@@ -12,6 +13,7 @@ const CreatePost = () => {
   });
 
   const { addPost } = useContext(PostListContext);
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +43,8 @@ const CreatePost = () => {
       content: "",
       tags: [],
     });
+
+    navigate("/");
   };
 
   const handleOnCancel = () => {

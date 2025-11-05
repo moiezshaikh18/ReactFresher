@@ -4,9 +4,10 @@ import { Nav, Dropdown, Image } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
 import { PostListContext } from "../../store/post-list-store";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
-  const { selectedTab, setSelectedTab } = useContext(PostListContext);
+  // const { selectedTab, setSelectedTab } = useContext(PostListContext);
 
   return (
     <div
@@ -16,22 +17,28 @@ function Sidebar() {
       {/* Navigation Menu */}
       <Nav variant="pills" className="flex-column mb-auto">
         <Nav.Item>
-          <Nav.Link
-            active={selectedTab === "Home"}
+          <Link
+            to="/"
+            // active={selectedTab === "Home"}
             className="text-white"
-            onClick={() => setSelectedTab("Home")}
+            onClick={() => {
+              console.log("clieekd home");
+            }}
           >
             <FaHome className="me-2" /> Home
-          </Nav.Link>
+          </Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link
-            active={selectedTab === "CreatePost"}
+          <Link
+            to="/create-post"
+            // active={selectedTab === "CreatePost"}
             className="text-white"
-            onClick={() => setSelectedTab("CreatePost")}
+            onClick={() => {
+              console.log("clieekd create post");
+            }}
           >
             <IoIosCreate className="me-2" /> Create Post
-          </Nav.Link>
+          </Link>
         </Nav.Item>
       </Nav>
 

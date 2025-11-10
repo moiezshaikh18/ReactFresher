@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 const initialState = {
   counter: 0,
+  privacy: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,9 @@ const reducer = (state = initialState, action) => {
 
     case "SUB":
       return { ...state, counter: state.counter - action.payload };
+
+    case "PRIVACY":
+      return { ...state, privacy: !state.privacy };
   }
 
   return state;

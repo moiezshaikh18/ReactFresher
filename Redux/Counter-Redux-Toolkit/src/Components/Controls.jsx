@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { counterActions } from "../store/counter";
 
 const Controls = () => {
   const dispatch = useDispatch();
@@ -9,17 +10,18 @@ const Controls = () => {
   const [subValue, setSubValue] = useState("");
 
   const handleIncrement = () => {
-    dispatch({ type: "INC", payload: 1 });
+    dispatch(counterActions.increment());
   };
 
   const handleDecrement = () => {
-    dispatch({ type: "DEC", payload: 1 });
+    dispatch(counterActions.decrement());
   };
 
   const handleAdd = () => {
     const value = Number(addValue);
     if (!isNaN(value) && value !== 0) {
-      dispatch({ type: "ADD", payload: value });
+      // ✅ Correct way — no need to wrap in { payload: value }
+      dispatch(counterActions.add(value));
       setAddValue("");
     }
   };
@@ -27,22 +29,23 @@ const Controls = () => {
   const handleSubtract = () => {
     const value = Number(subValue);
     if (!isNaN(value) && value !== 0) {
-      dispatch({ type: "SUB", payload: value });
+      dispatch(counterActions.sub(value)); // ✅ correct
       setSubValue("");
     }
   };
 
+  const handlePrivacyToggle = () => {
+    dispatch(counterActions.togglePrivacy()); // ✅ use slice action, not raw type
+  };
+
   return (
     <div className="d-flex flex-column align-items-center gap-4">
-      {/* +1 / -1 Buttons */}
-      <Button
-        variant="warning"
-        onClick={() => {
-          dispatch({ type: "PRIVACY" });
-        }}
-      >
+      {/* 🔒 Privacy Toggle */}
+      <Button variant="warning" onClick={handlePrivacyToggle}>
         PRIVACY TOGGLE
       </Button>
+
+      {/* ➕➖ Increment / Decrement */}
       <div className="d-flex gap-3">
         <Button
           variant="primary"
@@ -59,7 +62,8 @@ const Controls = () => {
           -1
         </Button>
       </div>
-      {/* Custom Add/Subtract Section */}
+
+      {/* ➕➖ Add / Subtract Custom Value */}
       <div className="d-flex flex-column flex-sm-row align-items-center gap-3 mt-3">
         <Form.Control
           type="number"

@@ -11,6 +11,12 @@ const reducer = (state = initialState, action) => {
 
     case "DEC":
       return { ...state, counter: state.counter - action.payload };
+
+    case "ADD":
+      return { ...state, counter: state.counter + action.payload };
+
+    case "SUB":
+      return { ...state, counter: state.counter - action.payload };
   }
 
   return state;

@@ -14,6 +14,9 @@ const reducer = (state = initialState, action) => {
     case "DECREMENT":
       return { counter: state.counter - 1 };
 
+    case "ADD":
+      return { counter: state.counter + action.payload.number };
+
     default:
       return state; // return the current state for unknown actions
   }
@@ -29,3 +32,4 @@ store.subscribe(subscriber);
 
 store.dispatch({ type: "INCREMENT" });
 store.dispatch({ type: "DECREMENT" });
+store.dispatch({ type: "ADD", payload: { number: 1 } });
